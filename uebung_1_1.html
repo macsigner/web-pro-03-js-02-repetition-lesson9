@@ -8,6 +8,42 @@
             font-family: "Helvetica Neue", sans-serif;
             font-weight: 300;
         }
+
+        img {
+            padding: 0;
+            background-color: lightgray;
+        }
+
+        .loading {
+            position: relative;
+        }
+
+        .loading::after {
+            content: '';
+            display: block;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 60px;
+            margin: auto;
+            border: 10px solid blue;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: loading 1.2s ease-in-out infinite;
+        }
+
+        @keyframes loading {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 <body>
@@ -33,10 +69,42 @@
       - Bei jedem klick auf "neues Gif laden" wird ein neues Bild angezeigt
     */
     document.querySelector('#execute-request').addEventListener('click', getGif);
-    var container = document.querySelector('#container');
+    let container = document.querySelector('#container');
 
     function getGif() {
-        // Code fürs abrufen kommt hierhin
+        loadData();
+    }
+
+    function loadData() {
+        container.classList.add('loading');
+
+        let request = new XMLHttpRequest();
+        request.open('GET', 'https://api.giphy.com/v1/gifs/random?api_key=vteZ9Q3wIUEvN7heLsE7bazziLfqxerV&limit=1&tag=puppy', true);
+
+        request.addEventListener('load', function() {
+            if (request.status === 200) {
+                render(JSON.parse(request.responseText));
+            }
+        });
+
+        request.addEventListener('error', function() {
+            alert('Some error has occoured!\nAre you offline?');
+        });
+
+        request.send();
+    }
+
+    function render(obj) {
+        let image = obj.data.images.original;
+
+        console.log(obj);
+
+        container.innerHTML = `<figure>
+                                   <img src="${image.url}" width="${image.width}" height="${image.height}" alt="${obj.data.title}">
+                                   <figcaption>${obj.data.title}</figcaption>
+                               </figure>`;
+
+        container.classList.remove('loading');
     }
 
 </script>
