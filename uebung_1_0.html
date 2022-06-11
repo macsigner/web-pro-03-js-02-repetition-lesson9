@@ -39,6 +39,34 @@
      * Jetzt sollte sowas stehen: "Fake Todo Backend listening on port 3001!"
     */
 
+    function loadData() {
+        let request = new XMLHttpRequest();
+        request.open('GET', 'http://localhost:3002/json', true);
+
+        request.onload = function() {
+            if (request.status === 200) {
+                render(JSON.parse(request.responseText));
+            }
+        };
+
+        request.send();
+    }
+
+    function render(items) {
+        let list = document.querySelector('#liste');
+
+        list.innerHTML = '';
+
+        for (let item of items) {
+            let li = document.createElement('li');
+
+            li.innerHTML = `${item.firstname} ${item.name} (${item.age})`;
+
+            list.appendChild(li);
+        }
+    }
+
+    loadData();
 </script>
 </body>
 </html>
