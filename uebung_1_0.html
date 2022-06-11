@@ -43,11 +43,11 @@
         let request = new XMLHttpRequest();
         request.open('GET', 'http://localhost:3002/json', true);
 
-        request.onload = function() {
+        request.addEventListener('load', function() {
             if (request.status === 200) {
                 render(JSON.parse(request.responseText));
             }
-        };
+        });
 
         request.send();
     }
