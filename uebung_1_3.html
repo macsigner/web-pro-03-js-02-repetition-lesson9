@@ -1,0 +1,84 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        * {
+            margin: 10px;
+            padding: 5px;
+            font-family: "Helvetica Neue", sans-serif;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+<h1>Get und Post Requests mit Tools.js</h1>
+<button id="execute-add">Eintrag hinzufügen</button>
+<button id="execute-get">Einträge abrufen (GET)</button>
+<button id="execute-post">Einträge speichern (POST)</button>
+<ul id="liste"></ul>
+<script type="module">
+    import * as Tools from './tools.js';
+    /* Aufgabe: XHR Funktionen für GET und POST in tools.js einbauen
+     *
+     * Verwende deine Lösung aus uebung_1_2 als Grundlage für diese Übung.
+     * Damit POST & GET requests nicht mehr so umständlich sind,
+     * wollen wir es uns für zukünftige Aufgaben einfacher machen.
+     * Erstelle 2 Methoden in tools.js damit du bei
+     * GET und POST anfragen nicht mehr soviel Code schreiben musst.
+     *
+     * Die Funktionen sollen so aufgebaut sein:
+     *
+     * Tools.get('http://URLZUMAUFRUFEN', function (response) { // CALLBACK Funktion mit Server Antwort })
+     * Tools.post('http://URLZUMAUFRUFEN', zuSendendeDaten, function (response) { // CALLBACK Funktion mit Server Antwort })
+     *
+     * Damit der Aufruf gelingt, muss das "Backend" laufen. Geh in den Ordner backend und führe folgendes aus:
+     * npm install
+     * npm start
+     * Jetzt sollte sowas stehen: "Fake Todo Backend listening on port 3002!"
+     */
+    var todos = [];
+
+    function getAufrufStarten() {
+        Tools.get('http://localhost:3002/todos', function(response) {
+            // Dein Code um die Liste zu aktualisieren
+        });
+    }
+
+    function postAufrufStarten() {
+        Tools.post('http://localhost:3002/todos', todos, function(response) {
+            // Dein Code um die Liste zu aktualisieren
+        });
+    }
+
+    function addItem() {
+        todos.push(
+            {firstname: "Bart", name: "Simpson " + (todos.length + 1), age: 10, sex: 'm'}
+        );
+        render();
+    }
+
+    function removeItem(event) {
+        todos.splice(event.target.parentNode.id, 1);
+        render();
+    }
+
+    function render() {
+        var liste = document.querySelector('#liste');
+        liste.innerHTML = ''; // alte Liste löschen
+        todos.forEach(function(elem, index) {
+            var li = document.createElement('li'); // Neues Element erzeugen
+            li.innerHTML = elem.firstname + ' ' + elem.name + ' <button>Löschen</button>'; // Daten abfüllen
+            li.id = index; // Id setzen (später wichtig für's löschen)
+            liste.appendChild(li); // Element an Fragment hängen
+        });
+    }
+
+    document.querySelector('#execute-add').addEventListener('click', addItem);
+    document.querySelector('#execute-get').addEventListener('click', getAufrufStarten);
+    document.querySelector('#execute-post').addEventListener('click', postAufrufStarten);
+    document.querySelector('#liste').addEventListener('click', Tools.delegate('li button', removeItem));
+</script>
+</body>
+</html>
+
+

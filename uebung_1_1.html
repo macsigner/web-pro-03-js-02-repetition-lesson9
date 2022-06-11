@@ -1,0 +1,46 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        * {
+            margin: 10px;
+            padding: 5px;
+            font-family: "Helvetica Neue", sans-serif;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+<h1>Happyness Generator</h1>
+
+<button id="execute-request">neues Gif laden</button>
+<div id="container"></div>
+<script>
+    /* Aufgabe:
+     * Erstelle eine Funktion genannt getGif, welche beim klick auf den Button ausgeführt wird.
+     *
+     * Die Funktion soll einen Get-Request ausführen auf die URL:
+     *  https://api.giphy.com/v1/gifs/random?api_key=vteZ9Q3wIUEvN7heLsE7bazziLfqxerV&limit=1&tag=puppy
+     *
+     * Bei jedem Aufruf erhälst du eine JSON Antwort, welche die URL zu einem Gif enthält.
+     * Entferne das vorherige IMG element (sofern vorhanden),
+     * erstelle im DOM ein neues IMG Element mit der URL des erhaltenen Gifs als src Wert und
+     * setzte das erstelle IMG Element in das #container div.
+     *
+     * Tipp: Die URL des Bildes befindet sich unter data.images.original.url in der JSON Antwort.
+     *       Die JSON Antwort musst du natürlich erst umwandeln
+     * Erwartetes Resultat:
+      - Bei jedem klick auf "neues Gif laden" wird ein neues Bild angezeigt
+    */
+    document.querySelector('#execute-request').addEventListener('click', getGif);
+    var container = document.querySelector('#container');
+
+    function getGif() {
+        // Code fürs abrufen kommt hierhin
+    }
+
+</script>
+</body>
+</html>
+
+
