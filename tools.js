@@ -5,3 +5,13 @@ export function delegate(selector, fn) {
         }
     }
 }
+
+export function post(url, data, fn) {
+    const request = new XMLHttpRequest();
+    request.open('POST', url);
+    request.setRequestHeader('Content-Type', 'application/json');
+
+    request.addEventListener('load', fn.bind(this, request));
+
+    request.send(JSON.stringify(data));
+}

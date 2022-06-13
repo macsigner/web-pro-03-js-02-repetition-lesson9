@@ -41,12 +41,14 @@
     function getAufrufStarten() {
         Tools.get('http://localhost:3002/todos', function(response) {
             // Dein Code um die Liste zu aktualisieren
+            console.log('GET');
         });
     }
 
     function postAufrufStarten() {
         Tools.post('http://localhost:3002/todos', todos, function(response) {
             // Dein Code um die Liste zu aktualisieren
+            console.log('POST');
         });
     }
 
