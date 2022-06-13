@@ -26,6 +26,6 @@ export function post(url, data, fn) {
     request.send(JSON.stringify(data));
 }
 
-export function requestIsOK(request) {
+export function stateIsOK(request) {
     return request.status >= 200 && request.status < 400;
 }
