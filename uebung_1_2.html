@@ -44,11 +44,44 @@
     var todos = [];
 
     function getAufrufStarten() {
-        // Dein Code hier
+        let request = new XMLHttpRequest();
+        request.open('GET', 'http://localhost:3002/todos');
+
+        request.addEventListener('load', () => {
+            todos = JSON.parse(request.responseText);
+
+            render();
+        });
+
+        request.addEventListener('error', () => {
+            alert('Ein Fehler ist aufgetreten!\n' +
+                'Die Daten konnten nicht Empfangen werden!\n' +
+                'Bist Du mit dem Internet verbunden?');
+        });
+
+        request.send();
     }
 
     function postAufrufStarten() {
-        // Dein Code hier
+        let request = new XMLHttpRequest();
+        request.open('POST', 'http://localhost:3002/todos');
+        request.setRequestHeader('Content-Type', 'application/json');
+
+        request.addEventListener('load', () => {
+            if (request.status === 200) {
+                todos = JSON.parse(request.responseText);
+
+                render();
+            }
+        });
+
+        request.addEventListener('error', () => {
+           alert('Ein Fehler ist aufgetreten!\n' +
+               'Daten konnten nicht gesendet werden!\n' +
+               'Bist Du mit dem Internet verbunden?');
+        });
+
+        request.send(JSON.stringify(todos));
     }
 
     function addItem() {
