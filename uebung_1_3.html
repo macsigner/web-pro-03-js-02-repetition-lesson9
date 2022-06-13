@@ -40,21 +40,15 @@
 
     function getAufrufStarten() {
         Tools.get('http://localhost:3002/todos', function(response) {
-            if(Tools.stateIsOK(response)) {
-                todos = JSON.parse(response.responseText);
-
-                render();
-            }
+            todos = response;
+            render();
         });
     }
 
     function postAufrufStarten() {
         Tools.post('http://localhost:3002/todos', todos, function(response) {
-            if(Tools.stateIsOK(response)) {
-                todos = JSON.parse(response.responseText);
-
-                render();
-            }
+            todos = response;
+            render();
         });
     }
 
