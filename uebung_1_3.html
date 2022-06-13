@@ -40,15 +40,17 @@
 
     function getAufrufStarten() {
         Tools.get('http://localhost:3002/todos', function(response) {
-            // Dein Code um die Liste zu aktualisieren
-            console.log('GET');
+            todos = JSON.parse(response.responseText);
+
+            render();
         });
     }
 
     function postAufrufStarten() {
         Tools.post('http://localhost:3002/todos', todos, function(response) {
-            // Dein Code um die Liste zu aktualisieren
-            console.log('POST');
+            todos = JSON.parse(response.responseText);
+
+            render();
         });
     }
 
