@@ -1,3 +1,4 @@
+
 export function delegate(selector, fn) {
     return function(e) {
         if(e.target.matches(selector)) {
@@ -23,4 +24,8 @@ export function post(url, data, fn) {
     request.addEventListener('load', fn.bind(this, request));
 
     request.send(JSON.stringify(data));
+}
+
+export function requestIsOK(request) {
+    return request.status >= 200 && request.status < 400;
 }

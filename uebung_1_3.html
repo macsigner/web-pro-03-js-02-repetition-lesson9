@@ -40,17 +40,21 @@
 
     function getAufrufStarten() {
         Tools.get('http://localhost:3002/todos', function(response) {
-            todos = JSON.parse(response.responseText);
+            if(Tools.requestIsOK(response)) {
+                todos = JSON.parse(response.responseText);
 
-            render();
+                render();
+            }
         });
     }
 
     function postAufrufStarten() {
         Tools.post('http://localhost:3002/todos', todos, function(response) {
-            todos = JSON.parse(response.responseText);
+            if(Tools.requestIsOK(response)) {
+                todos = JSON.parse(response.responseText);
 
-            render();
+                render();
+            }
         });
     }
 
