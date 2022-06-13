@@ -13,6 +13,12 @@ export function get(url, fn) {
 
     request.addEventListener('load', fn.bind(this, request));
 
+    request.addEventListener('error', () => {
+        alert('Ein Fehler ist aufgetreten!\n' +
+            'Die Daten konnten nicht Empfangen werden!\n' +
+            'Bist Du mit dem Internet verbunden?');
+    });
+
     request.send();
 }
 
@@ -22,6 +28,12 @@ export function post(url, data, fn) {
     request.setRequestHeader('Content-Type', 'application/json');
 
     request.addEventListener('load', fn.bind(this, request));
+
+    request.addEventListener('error', () => {
+        alert('Ein Fehler ist aufgetreten!\n' +
+            'Daten konnten nicht gesendet werden!\n' +
+            'Bist Du mit dem Internet verbunden?');
+    });
 
     request.send(JSON.stringify(data));
 }
