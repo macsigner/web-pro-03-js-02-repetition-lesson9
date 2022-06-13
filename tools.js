@@ -6,6 +6,15 @@ export function delegate(selector, fn) {
     }
 }
 
+export function get(url, fn) {
+    const request = new XMLHttpRequest();
+    request.open('GET', url);
+
+    request.addEventListener('load', fn.bind(this, request));
+
+    request.send();
+}
+
 export function post(url, data, fn) {
     const request = new XMLHttpRequest();
     request.open('POST', url);
